@@ -1,7 +1,5 @@
 package com.mandla.pokerscorekeeper.fragments;
 
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,23 +22,23 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.mandla.pokerscorekeeper.PlayerInfoActivity;
 import com.mandla.pokerscorekeeper.R;
-import com.mandla.pokerscorekeeper.controllers.GameController;
 import com.mandla.pokerscorekeeper.controllers.PlayersController;
 import com.mandla.pokerscorekeeper.model.Player;
 
 public class PlayersFragmentTab extends SherlockListFragment implements OnClickListener {
 	
 	public static final String PLAYER = "com.mandla.pokerscorekeeper.fragments.PLAYER";
+	public static final String BETTING_HISTORY = "com.mandla.pokerscorekeeper.fragments.BETTING_HISTORY";
+	public static final String BALANCE_HISTORY = "com.mandla.pokerscorekeeper.fragments.BALANCE_HISTORY";
 	
 	private PlayersController playersController;
-	private GameController gameController;
-	//private PlayersController playersController = new PlayersController( Mode.OVERDRAFT );
-	private ArrayList<String> playersList = new ArrayList<String>();
+	//private GameController gameController;
+	//private ArrayList<String> playersList = new ArrayList<String>();
 	
+	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
 		View rootView = inflater.inflate( R.layout.fragment_players, container, false );
-		//String[] playersList = new String[] {"Josh", "Dave", "Mike", "Ian" };
-		setListAdapter( new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, playersList ));
+		setListAdapter( new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, playersController.playerNames ));
 		
 		Button b_addPlayer = (Button) rootView.findViewById( R.id.add_player );
 		b_addPlayer.setOnClickListener( this );
@@ -52,13 +50,16 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 	public void setPlayersController( PlayersController pc )
 	{	playersController = pc; }
 
-	public void setGameController( GameController gc )
-	{	gameController = gc; }
+	//public void setGameController( GameController gc )
+	//{	gameController = gc; }
 	
 	// Don't let items be clicked until the activity has finished drawing everything
 	@Override
 	public void onActivityCreated( Bundle savedInstanceState ) {
 		super.onActivityCreated( savedInstanceState );
+		
+		playersController.updatePlayerNameList();
+		((BaseAdapter) getListAdapter()).notifyDataSetChanged();
 		getListView().setOnItemClickListener( new OnItemClickListener() {
 			@Override
 			public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
@@ -66,6 +67,9 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 				String name = ((TextView) view).getText().toString();
 				Player p = playersController.getPlayer( name );
 				showPlayerInfo.putExtra( PLAYER, p );
+				showPlayerInfo.putExtra( BETTING_HISTORY, p.getHistory( Player.BETTING_HISTORY ));
+				showPlayerInfo.putExtra( BALANCE_HISTORY, p.getHistory( Player.BALANCE_HISTORY ));
+				
 				startActivity( showPlayerInfo );
 			}
 		});
@@ -83,13 +87,18 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 			@Override
 			public void onClick( DialogInterface dialog, int whichButton ) {
 				final String name = input.getText().toString();
-				if( playersList.contains( name )) {
+				if( playersController.playerNames.contains( name )) {
+					Toast.makeText( getActivity().getBaseContext(), "'" + name + "' is already a player!" , Toast.LENGTH_LONG ).show();
+					
+				} else if( name.equals( Player.EMPTY_STRING )) {
+					Toast.makeText( getActivity().getBaseContext(), "Invalid name!" , Toast.LENGTH_LONG ).show();
 					
 				} else {
-					if( !playersController.addPlayer( name )) {
-						Toast.makeText( getActivity().getBaseContext(), "'" + name + "' is already a player!" , Toast.LENGTH_LONG ).show();
-					}
-					playersList.add( name );
+					//if( !playersController.addPlayer( name )) {
+					//	Toast.makeText( getActivity().getBaseContext(), "'" + name + "' is already a player!" , Toast.LENGTH_LONG ).show();
+					//}
+					//playersList.add( name );
+					playersController.addPlayer( name );
 					((BaseAdapter) getListAdapter()).notifyDataSetChanged();
 				}
 			}

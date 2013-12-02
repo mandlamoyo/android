@@ -11,20 +11,26 @@ import android.os.Parcelable;
 import com.mandla.pokerscorekeeper.MainActivity;
 
 public class Player implements Parcelable {
-	private static final String EMPTY_STRING = "";
+	public static final String EMPTY_STRING = "";
 	
+	public static final String NAME = "Name";
+	public static final String RANK = "Rank";
+	public static final String WINS = "Wins";
+	public static final String FOLDS = "Folds";
+	public static final String LOSSES = "Losses";
 	public static final String BALANCE = "Balance";
+	public static final String OVERDRAFT_LIMIT = "Overdraft Limit";
 	public static final String BETTING_HISTORY = "Betting History";
 	public static final String BALANCE_HISTORY = "Balance History";
 	
-	public static final String[] FIELDS = new String[] { "Name", "Balance", "Rank", "Folds", "Wins", "Losses", "Betting History", "Balance History" };
+	public static final String[] FIELDS = new String[] { "Name", "Balance", "Rank", "Folds", "Wins", "Losses", "Overdraft Limit", "Betting History", "Balance History" };
 	
 	
 	private ArrayList<String> history_bets;
 	private ArrayList<String> history_balance;
 	
 	private Map<String, String> attributes;
-	
+	private boolean isActive;
 	
 	public Player( String name, int balance, int playerCount ) {
 		String[] initValues = new String[] { 
@@ -34,11 +40,12 @@ public class Player implements Parcelable {
 				"0",
 				"0",
 				"0",
+				"1000",
 				EMPTY_STRING,
 				EMPTY_STRING 
 		};
 		
-		initialize( initValues);
+		initialize( initValues );
 	}
 	
 	public Player( String[] initValues )
@@ -51,15 +58,39 @@ public class Player implements Parcelable {
 		
 		attributes = new HashMap<String, String>();
 		setAttributes( values );
+		isActive = true;
 	}
 
 	public void addBet( String bet )
-	{	history_bets.add( bet ); }
+	{	
+		history_bets.add( bet );
+		int iBet = Integer.parseInt( bet );
+		changeAttribute( BALANCE, -iBet );
+	}
+	
+	public void fold()
+	{
+		isActive = false;
+		updateBalanceHistory();
+		changeAttribute( FOLDS, 1 );
+	}
+	
+
+	public boolean isActive()
+	{	return isActive; }
+	
+	public boolean hasFunds(int bet) {
+		int balance = Integer.parseInt( getAttribute( BALANCE ));
+		return balance >= bet;
+	}
+	
+	public void updateBalanceHistory()
+	{	history_balance.add( getAttribute( BALANCE )); }
 	
 	// SETTERS
 	public void setAttribute( String field, String value )
 	{	
-		if( field.equals( BALANCE )) history_balance.add( value );
+		//if( field.equals( BALANCE )) history_balance.add( value );
 		if( field.equals( BALANCE_HISTORY )) value = EMPTY_STRING;
 		if( field.equals( BETTING_HISTORY )) {
 			history_bets.add( value );
@@ -72,10 +103,10 @@ public class Player implements Parcelable {
 	public void setAttribute( String field, int value )
 	{	setAttribute( field, String.valueOf( value )); }
 	
-	public void changeField( String field, String change )
+	public void changeAttribute( String field, String change )
 	{	setAttribute( field, change ); }
 	
-	public void changeField( String field, int change )
+	public void changeAttribute( String field, int change )
 	{
 		int current = Integer.parseInt( attributes.get( field ));
 		setAttribute( field, String.valueOf( current + change ));
@@ -88,6 +119,18 @@ public class Player implements Parcelable {
 			setAttribute( FIELDS[i], value );
 		}
 	}
+	
+	public void setHistory( String type, String[] history )
+	{
+		ArrayList<String> historyContainer = ( type.equals( BETTING_HISTORY )) ? history_bets : history_balance;
+		historyContainer.clear();
+		for( String h : history ) {
+			historyContainer.add( h );
+		}
+	}
+	
+	public void setActive()
+	{	isActive = true; }
 	
 	// GETTERS
 	public String getAttribute( String field ) 
@@ -118,8 +161,17 @@ public class Player implements Parcelable {
 		
 		return AttributeMapList;
 	}
+	
+	public String[] getHistory( String type ) {
+		ArrayList<String> chosenHistory = ( type.equals( BETTING_HISTORY )) ? history_bets : history_balance;
+		
+		chosenHistory.remove( EMPTY_STRING );
+		String[] history = new String[chosenHistory.size()];
+		history = chosenHistory.toArray( history );
+		return history;
+	}
 
-
+	
 	//-------------------------- PARCELABLE --------------------------//
 	
 	public static final Parcelable.Creator<Player> CREATOR = new Parcelable.Creator<Player>() {
@@ -141,12 +193,5 @@ public class Player implements Parcelable {
 	@Override
 	public void writeToParcel( Parcel out, int flags ) {
 		out.writeStringArray( getAttributes() );
-	}
-
-	public String[] getHistory( String type ) {
-		ArrayList<String> chosenHistory = ( type.equals( BETTING_HISTORY )) ? history_bets : history_balance;
-		String[] history = new String[chosenHistory.size()];
-		history = chosenHistory.toArray( history );
-		return history;
 	}
 }

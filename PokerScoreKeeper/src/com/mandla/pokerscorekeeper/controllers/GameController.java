@@ -1,42 +1,52 @@
 package com.mandla.pokerscorekeeper.controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class GameController {
-	private static final int[] DEFAULT_CHIPS = new int[] {1, 5, 10, 25, 50, 100 };
-	private static final String FOLD = "Fold";
+	private static final int ABS_MIN_BET = 1;
+	private static final int ABS_MAX_BET = 1000000;
 	
-	private Map<Integer, Boolean> chips;
+	private int pot;
+	private int betMin;
+	private int betMax;
+	private int lastBet;
 	
 	public GameController()
 	{
-		chips = new HashMap<Integer, Boolean>();
-		for( int i : DEFAULT_CHIPS ) {
-			chips.put( i, true );
-		}
+		pot = 0;
+		betMin = 1;
+		betMax = 1000;
+		lastBet = 0;
 	}
-	
-	public void addChipValue( String value )
-	{	chips.put( Integer.parseInt( value ), true ); }
-	
-	public void removeChipValue( String value )
-	{	if( chips.get( Integer.parseInt( value )) != null ) chips.put( Integer.parseInt( value ), false ); }
-	
-	public String[] getChipValues()
-	{
-		String[] chipValues = new String[chips.size()];
-		ArrayList<Integer> int_chipValues = new ArrayList<Integer>(chips.size());
-		
-		int_chipValues.addAll( chips.keySet() );
-		Collections.sort( int_chipValues );
-		
-		for( int i=0; i<int_chipValues.size(); i++ ) {
-			chipValues[i] = String.valueOf( int_chipValues.get( i ));
-		}
 
-		return chipValues;
+	public void endRound()
+	{
+		pot = 0;
+		lastBet = 0;
 	}
+	
+	public void addToPot(int iBet)
+	{	pot += iBet; }
+
+	//--- GETTERS ---//
+	public int getPot()
+	{	return pot; }
+	
+	public int getMinBet()
+	{	return betMin; }
+	
+	public int getMaxBet()
+	{	return betMax; }
+	
+	public int getLastBet()
+	{	return lastBet; }
+	
+	//--- SETTERS ---//
+	public void setMinBet( int newMin )
+	{	betMin = Math.max( ABS_MIN_BET, newMin ); }
+	
+	public void setMaxBet( int newMax )
+	{	betMax = Math.min( ABS_MAX_BET, newMax ); }
+	
+	public void setLastBet( int newLast )
+	{	lastBet = newLast; }
 }

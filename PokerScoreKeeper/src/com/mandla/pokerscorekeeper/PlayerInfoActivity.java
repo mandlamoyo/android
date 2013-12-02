@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,8 @@ public class PlayerInfoActivity extends SherlockListActivity {
 		// Get player and ListView
 		Intent intent = getIntent();
 		player = (Player) intent.getParcelableExtra( PlayersFragmentTab.PLAYER );
+		player.setHistory( Player.BETTING_HISTORY, intent.getStringArrayExtra( PlayersFragmentTab.BETTING_HISTORY ));
+		player.setHistory( Player.BALANCE_HISTORY, intent.getStringArrayExtra( PlayersFragmentTab.BALANCE_HISTORY ));
 		//ListView listViewInfo = (ListView) findViewById( R.id.player_info );
 		
 		
@@ -64,23 +67,35 @@ public class PlayerInfoActivity extends SherlockListActivity {
 	private void showInfoDialog( String field, Player p )
 	{
 		if( field.equals( Player.BETTING_HISTORY ) || field.equals( Player.BALANCE_HISTORY )) {
+			final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1 ) {
+				@Override
+				public View getView( int position, View convertView, ViewGroup parent ) {
+					TextView textView = (TextView ) super.getView( position, convertView, parent );
+
+					int textColor = R.color.abs__primary_text_holo_light;
+					textView.setTextColor( PlayerInfoActivity.this.getResources().getColor( textColor ));
+					return textView;
+				}
+			};
+			
 			AlertDialog.Builder history = new AlertDialog.Builder( this );
 			String[] historyInfo = p.getHistory( field );
-			history.setTitle( field );
 			
-			final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, historyInfo );
-			history.setAdapter( arrayAdapter, new DialogInterface.OnClickListener() {
+			for( String h : historyInfo ) {
+				arrayAdapter.add( h );
+			}
+			
+			history.setTitle( field )
+			.setAdapter( arrayAdapter, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick( DialogInterface dialog, int which )
 				{	/* Do nothing */ }
-			});
-			
-			history.setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
+				
+			}).setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
 				public void onClick( DialogInterface dialog, int which )
 				{	/* Do nothing */ }
-			});
-			
-			history.show();
+				
+			}).show();
 		}
 	}
 }

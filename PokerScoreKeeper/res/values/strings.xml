@@ -15,5 +15,11 @@
     <string name="add_bet">Add Bet</string>
     <string name="title_activity_player_info">Player Information</string>
     <string name="order_by">Order By</string>
-
+	<string name="end_round">End Round</string>
+	<string name="pot">Pot</string>
+	<string name="last_bet">Last Bet</string>
+	<string name="placeholder_int">5</string>
+	<string name="center_point">:</string>
+	<string name="end_round_dialog_message">Select Round Winner: </string>
+	<string name="round_over">Round Over</string>
 </resources>

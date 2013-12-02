@@ -5,8 +5,6 @@ import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.mandla.pokerscorekeeper.controllers.GameController;
 import com.mandla.pokerscorekeeper.controllers.PlayersController;
 import com.mandla.pokerscorekeeper.fragments.PlayersFragmentTab;
@@ -41,7 +39,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		
 		// Set fragment controllers
 		((PlayersFragmentTab) fg_players).setPlayersController( pc );
-		((PlayersFragmentTab) fg_players).setGameController( gc );
+		//((PlayersFragmentTab) fg_players).setGameController( gc );
 		
 		((PotFragmentTab) fg_pot).setPlayersController( pc );
 		((PotFragmentTab) fg_pot).setGameController( gc );
@@ -60,10 +58,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		actionBar.addTab( tb_pot );
 	}
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
-		MenuInflater inflater = getSupportMenuInflater();
+		//MenuInflater inflater = getSupportMenuInflater();
 		//inflater.inflate( R.menu.main, menu );
 		return true;
-	}
+	}*/
 }
