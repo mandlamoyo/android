@@ -55,9 +55,10 @@ public class Player implements Parcelable {
 	{
 		history_bets = new ArrayList<String>();
 		history_balance = new ArrayList<String>();
-		
 		attributes = new HashMap<String, String>();
+		
 		setAttributes( values );
+		updateBalanceHistory();
 		isActive = true;
 	}
 
