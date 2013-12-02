@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+    <Spinner
+        android:id="@+id/name_spinner"
+        android:layout_width="0dp"
+        android:layout_weight="40"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true" />
+
+    <Spinner
+        android:id="@+id/value_spinner"
+        android:layout_width="0dp"
+        android:layout_weight="25"
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="true" />
+    
+    <ToggleButton
+        android:id="@+id/fold_toggle"
+        android:layout_width="0dp"
+        android:layout_weight="35"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textOn="Fold"
+        android:textOff="Bet" />
+    
+</LinearLayout>
