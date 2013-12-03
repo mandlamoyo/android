@@ -38,6 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mandla.pokerscorekeeper.MainActivity" />
         </activity>
+        <activity
+            android:name="com.mandla.pokerscorekeeper.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="com.mandla.pokerscorekeeper.WelcomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mandla.pokerscorekeeper.WelcomeActivity" />
+        </activity>
     </application>
 
 </manifest>

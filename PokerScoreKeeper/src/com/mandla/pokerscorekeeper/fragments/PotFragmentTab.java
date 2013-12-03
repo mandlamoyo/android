@@ -18,6 +18,9 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.mandla.pokerscorekeeper.R;
 import com.mandla.pokerscorekeeper.controllers.GameController;
 import com.mandla.pokerscorekeeper.controllers.PlayersController;
@@ -59,8 +62,8 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 	{	gameController = gc; }
 	
 	public void addBetDialog( View view ) {
-		AlertDialog.Builder alert = new AlertDialog.Builder( getActivity() );
-		View betDialogView = View.inflate( getActivity(), R.layout.add_bet_dialog, null );
+		AlertDialog.Builder alert = new AlertDialog.Builder( getSherlockActivity() );
+		View betDialogView = View.inflate( getSherlockActivity(), R.layout.add_bet_dialog, null );
 		
 		final Spinner nameList = (Spinner) betDialogView.findViewById( R.id.name_spinner );
 		final EditText chipValue = (EditText) betDialogView.findViewById( R.id.value_edit );
@@ -76,7 +79,7 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 		
 		
 		String[] playerNames = playersController.getActivePlayerNames();	
-		ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_spinner_item, playerNames );
+		ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>( getSherlockActivity(), android.R.layout.simple_spinner_item, playerNames );
 		nameAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		nameList.setAdapter( nameAdapter );
 
@@ -91,7 +94,7 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 				Player p = playersController.getPlayer( name );
 				
 				if( foldButton.isChecked() ) {
-					Toast.makeText( getActivity().getBaseContext(), name + " folded" , Toast.LENGTH_LONG ).show();
+					Toast.makeText( getSherlockActivity().getBaseContext(), name + " folded" , Toast.LENGTH_LONG ).show();
 					p.fold();
 					
 				} else {
@@ -105,10 +108,10 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 					int overdraftLimit = Integer.parseInt( p.getAttribute( Player.OVERDRAFT_LIMIT ));
 					
 					if( iBet < minBet || iBet > maxBet ) {
-						Toast.makeText( getActivity().getBaseContext(), minBet + " <= bet <= " + maxBet, Toast.LENGTH_LONG ).show();
+						Toast.makeText( getSherlockActivity().getBaseContext(), minBet + " <= bet <= " + maxBet, Toast.LENGTH_LONG ).show();
 						
 					} else if(( !p.hasFunds( iBet ) && gameMode == Mode.KNOCKOUT ) || ( balance - iBet < -overdraftLimit )) {
-						Toast.makeText( getActivity().getBaseContext(), "Insufficient funds!" , Toast.LENGTH_LONG ).show();
+						Toast.makeText( getSherlockActivity().getBaseContext(), "Insufficient funds!" , Toast.LENGTH_LONG ).show();
 						 
 					} else {
 						gameController.setLastBet( iBet );
@@ -129,12 +132,12 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 	}
 
 	public void endRoundDialog( View view ) {
-		AlertDialog.Builder alert = new AlertDialog.Builder( getActivity() );
+		AlertDialog.Builder alert = new AlertDialog.Builder( getSherlockActivity() );
 		String[] playerNames = playersController.getActivePlayerNames();
 		
-		final Spinner winnerSelector = new Spinner( getActivity() );
+		final Spinner winnerSelector = new Spinner( getSherlockActivity() );
 			
-		ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_spinner_item, playerNames );
+		ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>( getSherlockActivity(), android.R.layout.simple_spinner_item, playerNames );
 		nameAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		winnerSelector.setAdapter( nameAdapter );
 		
@@ -155,11 +158,11 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 	
 	public void updateDisplay() {
 		
-		LinearLayout potLayout = (LinearLayout) getActivity().findViewById( R.id.pot_view );
+		LinearLayout potLayout = (LinearLayout) getSherlockActivity().findViewById( R.id.pot_view );
 		TextView potDisplay = (TextView) potLayout.findViewById( R.id.pot_value );
 		potDisplay.setText( String.valueOf( gameController.getPot() ));
 		
-		LinearLayout lastBetLayout = (LinearLayout) getActivity().findViewById( R.id.last_bet_view );
+		LinearLayout lastBetLayout = (LinearLayout) getSherlockActivity().findViewById( R.id.last_bet_view );
 		TextView lastBetDisplay = (TextView) lastBetLayout.findViewById( R.id.last_bet_value );
 		lastBetDisplay.setText( String.valueOf( gameController.getLastBet() ));
 	}
@@ -176,5 +179,28 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 				break;
 		}
 		
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item ) {
+		switch( item.getItemId() ) {
+			case R.id.action_add_bet:
+				Toast.makeText( getActivity().getBaseContext(), "Add Bet" , Toast.LENGTH_LONG ).show();
+				break;
+				
+			case R.id.action_end_round:
+				Toast.makeText( getActivity().getBaseContext(), "End Round" , Toast.LENGTH_LONG ).show();
+				break;
+				
+			default:
+				return super.onOptionsItemSelected( item );
+				
+		}
+		return true;
+	}
+	
+	public void onCreateOptionsMenu( Menu menu, MenuInflater inflater ) {
+		inflater.inflate( R.menu.pot, menu );
+		super.onCreateOptionsMenu( menu, inflater );
 	}
 }

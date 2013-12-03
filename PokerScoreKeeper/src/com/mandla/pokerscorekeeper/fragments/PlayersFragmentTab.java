@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.mandla.pokerscorekeeper.PlayerInfoActivity;
 import com.mandla.pokerscorekeeper.R;
 import com.mandla.pokerscorekeeper.controllers.PlayersController;
@@ -118,6 +119,23 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 		
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item ) {
+		switch( item.getItemId() ) {
+			case R.id.action_add_player:
+				Toast.makeText( getActivity().getBaseContext(), "Add" , Toast.LENGTH_LONG ).show();
+				break;
+				
+			case R.id.action_order_by:
+				Toast.makeText( getActivity().getBaseContext(), "Order" , Toast.LENGTH_LONG ).show();
+				break;
+				
+			default:
+				return super.onOptionsItemSelected( item );
+				
+		}
+		return true;
+	}
 	
 	public void onCreateOptionsMenu( Menu menu, MenuInflater inflater ) {
 		inflater.inflate( R.menu.players, menu );

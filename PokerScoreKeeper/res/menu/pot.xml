@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	 <item
+        android:id="@+id/action_add_bet"
+        android:orderInCategory="1"
+        android:showAsAction="never"
+        android:title="@string/add_bet"/>
+	 
+    <item
+        android:id="@+id/action_end_round"
+        android:orderInCategory="50"
+        android:showAsAction="never"
+        android:title="@string/end_round"/>
+    
+</menu>
