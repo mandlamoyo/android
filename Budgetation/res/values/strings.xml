@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Budgetation</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_purchase">Add Purchase</string>
+    <string name="match_dialog_title">Matches</string>
+    <string name="match_dialog_message">Select best match:</string>
+    <string name="edit_dialog_title">Edit Purchase Details</string>
+	<string name="edit_dialog_name_label">Name</string>
+	<string name="edit_dialog_quantity_label">Quantity</string>
+	<string name="edit_dialog_price_label">Price</string>
+	<string name="edit_dialog_currency_label">Currency</string>
+	<string name="save">Save</string>
+	
+</resources>
