@@ -32,7 +32,7 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 	public static final String BETTING_HISTORY = "com.mandla.pokerscorekeeper.fragments.BETTING_HISTORY";
 	public static final String BALANCE_HISTORY = "com.mandla.pokerscorekeeper.fragments.BALANCE_HISTORY";
 	
-	private PlayersController playersController;
+	private PlayersController playersController = PlayersController.getInstance();
 	//private GameController gameController;
 	//private ArrayList<String> playersList = new ArrayList<String>();
 	
@@ -48,9 +48,6 @@ public class PlayersFragmentTab extends SherlockListFragment implements OnClickL
 		return rootView;
 	}
 	
-	public void setPlayersController( PlayersController pc )
-	{	playersController = pc; }
-
 	//public void setGameController( GameController gc )
 	//{	gameController = gc; }
 	

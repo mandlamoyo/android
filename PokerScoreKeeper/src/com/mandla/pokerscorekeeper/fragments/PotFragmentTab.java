@@ -29,8 +29,8 @@ import com.mandla.pokerscorekeeper.model.Player;
 
 public class PotFragmentTab extends SherlockFragment implements OnClickListener {
 
-	private PlayersController playersController;
-	private GameController gameController;
+	private PlayersController playersController = PlayersController.getInstance();
+	private GameController gameController = GameController.getInstance();
 	
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
@@ -52,11 +52,6 @@ public class PotFragmentTab extends SherlockFragment implements OnClickListener 
 		super.onActivityCreated( savedInstanceState );
 		updateDisplay();
 	}
-
-		
-	
-	public void setPlayersController( PlayersController pc )
-	{	playersController = pc; }
 
 	public void setGameController( GameController gc )
 	{	gameController = gc; }

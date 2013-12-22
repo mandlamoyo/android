@@ -1,7 +1,10 @@
 package com.mandla.pokerscorekeeper;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -14,7 +17,7 @@ import com.mandla.pokerscorekeeper.controllers.PlayersController;
 import com.mandla.pokerscorekeeper.database.ProfileDataHelper;
 import com.mandla.pokerscorekeeper.fragments.PlayersFragmentTab;
 import com.mandla.pokerscorekeeper.fragments.PotFragmentTab;
-import com.mandla.pokerscorekeeper.model.Mode;
+import com.mandla.pokerscorekeeper.model.State;
 
 public class MainActivity extends SherlockFragmentActivity {
 
@@ -22,8 +25,9 @@ public class MainActivity extends SherlockFragmentActivity {
 	public static final String VALUE = "com.mandla.pokerscorekeeper.VALUE";
 	public static final String FIELD = "com.mandla.pokerscorekeeper.FIELD";
 	
-	private PlayersController pc = new PlayersController( Mode.OVERDRAFT );
-	private GameController gc = new GameController();
+	//private PlayersController pc = new PlayersController( Mode.OVERDRAFT );
+	private PlayersController pc = PlayersController.getInstance();
+	private GameController gc = GameController.getInstance();
 	
 	private ActionBar.Tab tb_players, tb_pot;
 	private Fragment fg_players = new PlayersFragmentTab();
@@ -44,11 +48,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		actionBar.setNavigationMode( ActionBar.NAVIGATION_MODE_TABS );
 		
 		// Set fragment controllers
-		((PlayersFragmentTab) fg_players).setPlayersController( pc );
+		//((PlayersFragmentTab) fg_players).setPlayersController( pc );
 		//((PlayersFragmentTab) fg_players).setGameController( gc );
 		
-		((PotFragmentTab) fg_pot).setPlayersController( pc );
-		((PotFragmentTab) fg_pot).setGameController( gc );
+		//((PotFragmentTab) fg_pot).setPlayersController( pc );
+		//((PotFragmentTab) fg_pot).setGameController( gc );
 		
 		
 		// Set Tab icons/titles
@@ -64,6 +68,45 @@ public class MainActivity extends SherlockFragmentActivity {
 		actionBar.addTab( tb_pot );
 	}
 
+	public void saveGameDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder( this );
+		final EditText gameNameEdit = new EditText( this );
+		
+		alert.setTitle( getString( R.string.game_id_dialog_title ))
+		.setMessage( getString( R.string.game_id_dialog_message ))
+		.setView( gameNameEdit )
+		.setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick( DialogInterface dialog, int whichButton ) {
+				String gameName = gameNameEdit.getText().toString();
+				if( pData.gameExists( gameName )) {
+					State state = new State();
+					state.gameName = gameName;
+					state.pot = gc.getPot();
+					state.lastBet = gc.getLastBet();
+	
+					pData.updateProfile( pc.getPlayers(), state );
+					
+				} else {
+					State state = new State();
+					state.gameName = gameName;
+					state.pot = gc.getPot();
+					state.lastBet = gc.getLastBet();
+					
+					pData.addProfile( pc.getPlayers(), state );
+				}
+			}
+			
+		}).setNegativeButton( android.R.string.cancel, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick( DialogInterface dialog, int whichButton ) {
+				// Do nothing
+			}
+			
+		}).show();
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu ) {
@@ -76,10 +119,11 @@ public class MainActivity extends SherlockFragmentActivity {
 	public boolean onOptionsItemSelected( MenuItem item ) {
 		switch( item.getItemId() ) {
 			case R.id.action_save_profile:
-				Toast.makeText( this.getBaseContext(), "Save" , Toast.LENGTH_LONG ).show();
+				/*Toast.makeText( this.getBaseContext(), "Save" , Toast.LENGTH_LONG ).show();
 				for( String name : pc.playerNames ) {
 					pData.addProfile( pc.getPlayer( name ));
-				}
+				}*/
+				saveGameDialog();
 				break;
 				
 			case R.id.action_settings:

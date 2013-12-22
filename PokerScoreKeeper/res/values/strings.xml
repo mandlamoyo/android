@@ -3,6 +3,8 @@
 
     <string name="app_name">Poker Score Keeper</string>
     <string name="action_settings">Settings</string>
+    <string name="delete_profile">Delete Profile</string>
+    <string name="delete_profile_message">Select Profile to Delete</string>
     <string name="new_profile">New Game Profile</string>
     <string name="load_profile">Load Profile</string>
     <string name="select_profile_message">Select Profile to Load</string>
@@ -25,5 +27,7 @@
     <string name="round_over">Round Over</string>
     <string name="save_profile">Save Profile</string>
     <string name="title_activity_settings">Settings</string>
+	<string name="game_id_dialog_title">Save Game Profile</string>  
+	<string name="game_id_dialog_message">Enter profile name: </string>  
 
 </resources>

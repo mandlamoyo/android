@@ -6,15 +6,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.mandla.pokerscorekeeper.controllers.PlayersController;
 import com.mandla.pokerscorekeeper.database.ProfileDataHelper;
+import com.mandla.pokerscorekeeper.model.Profile;
 
 public class WelcomeActivity extends Activity {
 
 	private ProfileDataHelper pData;
+	private PlayersController pc = PlayersController.getInstance();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +29,91 @@ public class WelcomeActivity extends Activity {
 		
 	}
 
-	public void loadProfileDialog( View view ) {
+	private void deleteProfileDialog() {
 		AlertDialog.Builder alert = new AlertDialog.Builder( this );
-		//String[] playerNames = playersController.getActivePlayerNames();
 		
-		//final Spinner winnerSelector = new Spinner( getSherlockActivity() );
-		String[] playerNames = pData.getProfileNames();
-		final ListView playerList = new ListView( this );
+		final Spinner profileSelector = new Spinner( this );
+		String[] profileNames = pData.getProfileNames();
 		
-		ArrayAdapter<String> nameAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, playerNames );
-		playerList.setAdapter( nameAdapter );
+		ArrayAdapter<String> profileAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_spinner_item, profileNames );
+		profileAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		profileSelector.setAdapter( profileAdapter );
 		
-		alert.setTitle( getString( R.string.load_profile ))
-		.setMessage( getString( R.string.select_profile_message ))
-		.setView( playerList )
+		alert.setTitle( getString( R.string.delete_profile ))
+		.setMessage( getString( R.string.delete_profile_message ))
+		.setView( profileSelector )
 		.setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener() {
 			
 			@Override
 			public void onClick( DialogInterface dialog, int whichButton ) {
-				// Do something
+				String profileName = profileSelector.getSelectedItem().toString();
+				pData.deleteProfile( profileName );
 			}
+			
+		}).setNegativeButton( android.R.string.cancel, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick( DialogInterface dialog, int whichButton ) {
+				// Do nothing
+			}
+			
 		}).show();
 	}
+	
+	private void loadProfileDialog() {
+		AlertDialog.Builder alert = new AlertDialog.Builder( this );
+		//String[] playerNames = playersController.getActivePlayerNames();
+		
+		final Spinner profileSelector = new Spinner( this );
+		String[] profileNames = pData.getProfileNames();
+		
+		ArrayAdapter<String> profileAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_spinner_item, profileNames );
+		profileAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
+		profileSelector.setAdapter( profileAdapter );
+		
+		
+		alert.setTitle( getString( R.string.load_profile ))
+		.setMessage( getString( R.string.select_profile_message ))
+		.setView( profileSelector )
+		.setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick( DialogInterface dialog, int whichButton ) {
+				String profileName = profileSelector.getSelectedItem().toString();
+				Profile profile = pData.getProfile( profileName );
+				pc.loadProfile( profile.players );
+				
+				Intent showProfile = new Intent( getBaseContext(), MainActivity.class );
+				startActivity( showProfile );
+			}
+			
+		}).setNegativeButton( android.R.string.cancel, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick( DialogInterface dialog, int whichButton ) {
+				// Do nothing
+			}
+			
+		}).show();
+	}
+	
+	// Action Buttons
+	public void startNewProfile( View view )
+	{
+		pc.reset();
+		Intent showProfile = new Intent( this, MainActivity.class );
+		startActivity( showProfile );
+	}
+	
+	public void loadProfile( View view )
+	{	loadProfileDialog(); }
+	
+	public void showSettings( View view )
+	{
+		Intent showSettings = new Intent( this, SettingsActivity.class );
+		startActivity( showSettings );
+	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,20 +122,22 @@ public class WelcomeActivity extends Activity {
 		return true;
 	}
 
-	public void startNewProfile( View view )
-	{
-		Intent showProfile = new Intent( this, MainActivity.class );
-		startActivity( showProfile );
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item ) {
+		switch( item.getItemId() ) {
+			case R.id.action_delete_profile:
+				deleteProfileDialog();
+				break;
+				
+			case R.id.action_settings:
+				Toast.makeText( this.getBaseContext(), "Settings" , Toast.LENGTH_LONG ).show();
+				break;
+				
+			default:
+				return super.onOptionsItemSelected( item );
+				
+		}
+		return true;
 	}
 	
-	public void loadProfile( View view )
-	{
-		loadProfileDialog( view );
-	}
-	
-	public void showSettings( View view )
-	{
-		Intent showSettings = new Intent( this, SettingsActivity.class );
-		startActivity( showSettings );
-	}
 }

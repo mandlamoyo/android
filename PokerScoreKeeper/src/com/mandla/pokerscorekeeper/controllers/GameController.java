@@ -5,12 +5,14 @@ public class GameController {
 	private static final int ABS_MIN_BET = 1;
 	private static final int ABS_MAX_BET = 1000000;
 	
+	private static GameController gcInstance;
+	
 	private int pot;
 	private int betMin;
 	private int betMax;
 	private int lastBet;
 	
-	public GameController()
+	private GameController()
 	{
 		pot = 0;
 		betMin = 1;
@@ -18,6 +20,19 @@ public class GameController {
 		lastBet = 0;
 	}
 
+	public static GameController getInstance() {
+		if( gcInstance == null ) gcInstance = new GameController();
+		return gcInstance;
+	}
+	
+	public void reset()
+	{
+		pot = 0;
+		betMin = 1;
+		betMax = 1000;
+		lastBet = 0;
+	}
+	
 	public void endRound()
 	{
 		pot = 0;

@@ -17,19 +17,30 @@ public class PlayersController {
 	private static final int INIT_OVERDRAFT_MONEY = 0;
 	private static final int DEFAULT_KNOCKOUT_MONEY = 100;
 	
+	private static PlayersController pcInstance;
+	
 	private Map<String, Player> players;
 	private Mode mode;
 	private int[] startMoney;
 	
 	public ArrayList<String> playerNames;
 	
-	public PlayersController( Mode m ) {
-		mode = m; //Mode.OVERDRAFT;
+	private PlayersController( Mode m ) {
+		mode = (m == null) ? Mode.OVERDRAFT : m; //Mode.OVERDRAFT;
 		players =  new HashMap<String, Player>();
 		playerNames = new ArrayList<String>();
 		startMoney = new int[] { INIT_OVERDRAFT_MONEY, DEFAULT_KNOCKOUT_MONEY };
 	}
 	
+	public static PlayersController getInstance() {
+		if( pcInstance == null ) pcInstance = new PlayersController( null );
+		return pcInstance;
+	}
+	
+	public void reset() {
+		players =  new HashMap<String, Player>();
+		playerNames = new ArrayList<String>();
+	}
 	
 	public void addPlayer( String name ) {
 		int money = startMoney[mode.ordinal()];
@@ -63,6 +74,17 @@ public class PlayersController {
 		updateRankings();
 	}
 	
+	public void loadProfile( ArrayList<Player> playerList )
+	{
+		reset();
+		
+		for( Player p : playerList ) {
+			String name = p.getAttribute( Player.NAME );
+			players.put( name, p );
+			updatePlayerNameList();
+		}
+	}
+	
 	// SETTERS //
 	
 	public void setMode( Mode m )
@@ -79,6 +101,13 @@ public class PlayersController {
 	
 	public Player getPlayer( String name )
 	{	return players.get( name ); }
+	
+	public ArrayList<Player> getPlayers()
+	{	
+		ArrayList<Player> plist = new ArrayList<Player>();
+		plist.addAll( players.values() ); 
+		return plist;
+	}
 	
 	public List<Map<String, String>> getAttributeMapList( String name ) {
 		Player p = players.get( name );

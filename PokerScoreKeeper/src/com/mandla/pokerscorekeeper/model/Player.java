@@ -22,6 +22,7 @@ public class Player implements Parcelable {
 	public static final String OVERDRAFT_LIMIT = "Overdraft Limit";
 	public static final String BETTING_HISTORY = "Betting History";
 	public static final String BALANCE_HISTORY = "Balance History";
+	public static final String ACTIVE = "Active";
 	
 	public static final String[] FIELDS = new String[] { "Name", "Balance", "Rank", "Folds", "Wins", "Losses", "Overdraft Limit", "Betting History", "Balance History" };
 	
@@ -133,7 +134,14 @@ public class Player implements Parcelable {
 	public void setActive()
 	{	isActive = true; }
 	
+	
 	// GETTERS
+	public String getActiveFlag()
+	{
+		if( isActive ) return "1";
+		return "0";
+	}
+	
 	public String getAttribute( String field ) 
 	{	return attributes.get( field ); }
 	
@@ -195,4 +203,5 @@ public class Player implements Parcelable {
 	public void writeToParcel( Parcel out, int flags ) {
 		out.writeStringArray( getAttributes() );
 	}
+	
 }

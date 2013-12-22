@@ -966,6 +966,7 @@ containing a value of this type.
         public static final int abs__up=0x7f05000b;
         public static final int action_add_bet=0x7f050049;
         public static final int action_add_player=0x7f050047;
+        public static final int action_delete_profile=0x7f05004b;
         public static final int action_end_round=0x7f05004a;
         public static final int action_order_by=0x7f050048;
         public static final int action_save_profile=0x7f050045;
@@ -1085,67 +1086,71 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f0a0007;
         public static final int action_settings=0x7f0a000e;
-        public static final int add_bet=0x7f0a0019;
-        public static final int add_player=0x7f0a0016;
-        public static final int add_player_dialog_message=0x7f0a0018;
-        public static final int add_player_dialog_title=0x7f0a0017;
+        public static final int add_bet=0x7f0a001b;
+        public static final int add_player=0x7f0a0018;
+        public static final int add_player_dialog_message=0x7f0a001a;
+        public static final int add_player_dialog_title=0x7f0a0019;
         public static final int app_name=0x7f0a000d;
-        public static final int center_point=0x7f0a0020;
-        public static final int end_round=0x7f0a001c;
-        public static final int end_round_dialog_message=0x7f0a0021;
-        public static final int hello_world=0x7f0a0013;
-        public static final int last_bet=0x7f0a001e;
-        public static final int load_profile=0x7f0a0010;
-        public static final int new_profile=0x7f0a000f;
-        public static final int order_by=0x7f0a001b;
-        public static final int placeholder=0x7f0a0015;
-        public static final int placeholder_int=0x7f0a001f;
-        public static final int pot=0x7f0a001d;
-        public static final int pref_default_display_name=0x7f0a0036;
-        public static final int pref_default_max_bet=0x7f0a0031;
-        public static final int pref_default_max_players=0x7f0a0028;
-        public static final int pref_default_min_bet=0x7f0a002f;
-        public static final int pref_default_starting_balance=0x7f0a002d;
-        public static final int pref_description_social_recommendations=0x7f0a0034;
+        public static final int center_point=0x7f0a0022;
+        public static final int delete_profile=0x7f0a000f;
+        public static final int delete_profile_message=0x7f0a0010;
+        public static final int end_round=0x7f0a001e;
+        public static final int end_round_dialog_message=0x7f0a0023;
+        public static final int game_id_dialog_message=0x7f0a0028;
+        public static final int game_id_dialog_title=0x7f0a0027;
+        public static final int hello_world=0x7f0a0015;
+        public static final int last_bet=0x7f0a0020;
+        public static final int load_profile=0x7f0a0012;
+        public static final int new_profile=0x7f0a0011;
+        public static final int order_by=0x7f0a001d;
+        public static final int placeholder=0x7f0a0017;
+        public static final int placeholder_int=0x7f0a0021;
+        public static final int pot=0x7f0a001f;
+        public static final int pref_default_display_name=0x7f0a003a;
+        public static final int pref_default_max_bet=0x7f0a0035;
+        public static final int pref_default_max_players=0x7f0a002c;
+        public static final int pref_default_min_bet=0x7f0a0033;
+        public static final int pref_default_starting_balance=0x7f0a0031;
+        public static final int pref_description_social_recommendations=0x7f0a0038;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0a0038;
+        public static final int pref_header_data_sync=0x7f0a003c;
         /**  Strings related to Settings 
  Gameplay settings 
          */
-        public static final int pref_header_gameplay=0x7f0a0025;
+        public static final int pref_header_gameplay=0x7f0a0029;
         /**  Example General settings 
          */
-        public static final int pref_header_general=0x7f0a0032;
+        public static final int pref_header_general=0x7f0a0036;
         /**  Money settings 
          */
-        public static final int pref_header_money=0x7f0a002a;
+        public static final int pref_header_money=0x7f0a002e;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f0a003b;
-        public static final int pref_ringtone_silent=0x7f0a003e;
-        public static final int pref_title_add_friends_to_messages=0x7f0a0037;
-        public static final int pref_title_currency=0x7f0a002b;
-        public static final int pref_title_display_name=0x7f0a0035;
-        public static final int pref_title_max_bet=0x7f0a0030;
-        public static final int pref_title_max_players=0x7f0a0027;
-        public static final int pref_title_min_bet=0x7f0a002e;
-        public static final int pref_title_new_message_notifications=0x7f0a003c;
-        public static final int pref_title_player_order=0x7f0a0029;
-        public static final int pref_title_ringtone=0x7f0a003d;
-        public static final int pref_title_scoring_mode=0x7f0a0026;
-        public static final int pref_title_social_recommendations=0x7f0a0033;
-        public static final int pref_title_starting_balance=0x7f0a002c;
-        public static final int pref_title_sync_frequency=0x7f0a0039;
-        public static final int pref_title_system_sync_settings=0x7f0a003a;
-        public static final int pref_title_vibrate=0x7f0a003f;
-        public static final int round_over=0x7f0a0022;
-        public static final int save_profile=0x7f0a0023;
-        public static final int select_profile_message=0x7f0a0011;
-        public static final int title_activity_main=0x7f0a0014;
-        public static final int title_activity_player_info=0x7f0a001a;
-        public static final int title_activity_players=0x7f0a0012;
-        public static final int title_activity_settings=0x7f0a0024;
+        public static final int pref_header_notifications=0x7f0a003f;
+        public static final int pref_ringtone_silent=0x7f0a0042;
+        public static final int pref_title_add_friends_to_messages=0x7f0a003b;
+        public static final int pref_title_currency=0x7f0a002f;
+        public static final int pref_title_display_name=0x7f0a0039;
+        public static final int pref_title_max_bet=0x7f0a0034;
+        public static final int pref_title_max_players=0x7f0a002b;
+        public static final int pref_title_min_bet=0x7f0a0032;
+        public static final int pref_title_new_message_notifications=0x7f0a0040;
+        public static final int pref_title_player_order=0x7f0a002d;
+        public static final int pref_title_ringtone=0x7f0a0041;
+        public static final int pref_title_scoring_mode=0x7f0a002a;
+        public static final int pref_title_social_recommendations=0x7f0a0037;
+        public static final int pref_title_starting_balance=0x7f0a0030;
+        public static final int pref_title_sync_frequency=0x7f0a003d;
+        public static final int pref_title_system_sync_settings=0x7f0a003e;
+        public static final int pref_title_vibrate=0x7f0a0043;
+        public static final int round_over=0x7f0a0024;
+        public static final int save_profile=0x7f0a0025;
+        public static final int select_profile_message=0x7f0a0013;
+        public static final int title_activity_main=0x7f0a0016;
+        public static final int title_activity_player_info=0x7f0a001c;
+        public static final int title_activity_players=0x7f0a0014;
+        public static final int title_activity_settings=0x7f0a0026;
     }
     public static final class style {
         /** 
