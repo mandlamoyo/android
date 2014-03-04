@@ -9,12 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/speakButton"
+    <TextView 
+        android:id="@+id/empty"
         android:layout_width="match_parent"
-        android:onClick="speakButtonClicked"
         android:layout_height="wrap_content"
-        android:text="@string/add_purchase" />
+        android:text="@string/no_purchases" />
     
     <ListView 
     	android:id="@+id/list"
@@ -22,4 +21,13 @@
     	android:layout_height="0dp"
     	android:layout_weight="1" />
 
+    
+    
+    <Button
+        android:id="@+id/speakButton"
+        android:layout_width="match_parent"
+        android:onClick="speakButtonClicked"
+        android:layout_height="wrap_content"
+        android:text="@string/add_purchase" />
+    
 </LinearLayout>

@@ -952,21 +952,33 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040038;
-        public static final int currency_edit=0x7f040037;
+        public static final int action_add_manually=0x7f040040;
+        public static final int action_clear=0x7f040041;
+        public static final int action_export=0x7f040042;
+        public static final int action_next=0x7f040044;
+        public static final int action_prev=0x7f040043;
+        public static final int action_settings=0x7f04003f;
+        public static final int checkbox_purchase=0x7f04003e;
+        public static final int currency_edit=0x7f040038;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f040026;
+        public static final int empty=0x7f040032;
         public static final int homeAsUp=0x7f040006;
         public static final int list=0x7f040033;
         public static final int listMode=0x7f040002;
-        public static final int name_edit=0x7f040034;
+        public static final int list_item_currency=0x7f04003d;
+        public static final int list_item_name=0x7f04003a;
+        public static final int list_item_price=0x7f04003b;
+        public static final int list_item_quantity=0x7f04003c;
+        public static final int list_item_separator=0x7f040039;
+        public static final int name_edit=0x7f040035;
         public static final int normal=0x7f040001;
-        public static final int price_edit=0x7f040036;
-        public static final int quantity_edit=0x7f040035;
+        public static final int price_edit=0x7f040037;
+        public static final int quantity_edit=0x7f040036;
         public static final int showCustom=0x7f040008;
         public static final int showHome=0x7f040005;
         public static final int showTitle=0x7f040007;
-        public static final int speakButton=0x7f040032;
+        public static final int speakButton=0x7f040034;
         public static final int tabMode=0x7f040003;
         public static final int useLogo=0x7f040004;
         public static final int wrap_content=0x7f040000;
@@ -998,8 +1010,10 @@ containing a value of this type.
         public static final int abs__simple_dropdown_hint=0x7f030014;
         public static final int activity_main=0x7f030015;
         public static final int edit_purchase_dialog=0x7f030016;
-        public static final int sherlock_spinner_dropdown_item=0x7f030017;
-        public static final int sherlock_spinner_item=0x7f030018;
+        public static final int list_item=0x7f030017;
+        public static final int purchase_checkbox_item=0x7f030018;
+        public static final int sherlock_spinner_dropdown_item=0x7f030019;
+        public static final int sherlock_spinner_item=0x7f03001a;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
@@ -1045,16 +1059,31 @@ containing a value of this type.
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090007;
         public static final int action_settings=0x7f09000e;
-        public static final int add_purchase=0x7f09000f;
+        public static final int add=0x7f09000f;
+        public static final int add_manually=0x7f09001e;
+        public static final int add_purchase=0x7f090010;
+        public static final int alter_dialog_message=0x7f090014;
+        public static final int alter_dialog_title=0x7f090013;
         public static final int app_name=0x7f09000d;
-        public static final int edit_dialog_currency_label=0x7f090016;
-        public static final int edit_dialog_name_label=0x7f090013;
-        public static final int edit_dialog_price_label=0x7f090015;
-        public static final int edit_dialog_quantity_label=0x7f090014;
-        public static final int edit_dialog_title=0x7f090012;
-        public static final int match_dialog_message=0x7f090011;
-        public static final int match_dialog_title=0x7f090010;
-        public static final int save=0x7f090017;
+        public static final int clear=0x7f090025;
+        public static final int delete=0x7f090023;
+        public static final int delete_dialog_message=0x7f090018;
+        public static final int delete_dialog_title=0x7f090017;
+        public static final int delete_purchase=0x7f090016;
+        public static final int edit_dialog_currency_label=0x7f09001d;
+        public static final int edit_dialog_name_label=0x7f09001a;
+        public static final int edit_dialog_price_label=0x7f09001c;
+        public static final int edit_dialog_quantity_label=0x7f09001b;
+        public static final int edit_dialog_title=0x7f090019;
+        public static final int edit_purchase=0x7f090015;
+        public static final int export=0x7f090024;
+        public static final int match_dialog_message=0x7f090012;
+        public static final int match_dialog_title=0x7f090011;
+        public static final int next=0x7f090022;
+        public static final int no_purchases=0x7f090026;
+        public static final int prev=0x7f090021;
+        public static final int save=0x7f09001f;
+        public static final int total=0x7f090020;
     }
     public static final class style {
         /** 
